@@ -1,55 +1,50 @@
-import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
-      .then((value) => runApp(XylophoneApp()));
-  runApp(XylophoneApp());
+  runApp(const MyApp());
 }
 
-class XylophoneApp extends StatelessWidget {
-  void playSound(int num) {
-    final player = AudioPlayer();
+class MyApp extends StatelessWidget {
+  void playSound(int num){
+    final player =AudioPlayer();
     player.play(AssetSource('note$num.wav'));
   }
 
-  Expanded keyCl(Color c, int num) {
-    return Expanded(
-      child: TextButton(
-        style: TextButton.styleFrom(
-          backgroundColor: c,
-        ),
-        onPressed: () {
-          playSound(num);
-        },
-        child: Text(''),
-      ),
+  MaterialButton keySound(Color c , int num){
+    return  MaterialButton(
+      onPressed: (){
+        playSound(num);
+      },
+      color: c,
+
     );
   }
-
-  const XylophoneApp({super.key});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: Scaffold(
-      backgroundColor: Colors.black,
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            keyCl(Colors.blue.shade100, 1),
-            keyCl(Colors.blue.shade200, 2),
-            keyCl(Colors.blue.shade300, 3),
-            keyCl(Colors.blue.shade400, 4),
-            keyCl(Colors.blue.shade500, 5),
-            keyCl(Colors.blue.shade700, 6),
-            keyCl(Colors.blue.shade900, 7),
-          ],
-        ),
+      home: Scaffold(
+        backgroundColor: Colors.black,
+          body: SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                keySound(Colors.red, 1),
+                keySound(Colors.orange, 2),
+                keySound(Colors.blue, 3),
+                keySound(Colors.yellow, 4),
+                keySound(Colors.purple, 5),
+                keySound(Colors.green, 6),
+                keySound(Colors.grey, 7)
+              ],
+            ),
+          )
       ),
-    ));
+    );
   }
 }
+
+
